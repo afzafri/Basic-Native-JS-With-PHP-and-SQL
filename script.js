@@ -8,7 +8,6 @@ function insertDat(name,age)
 	
 	xh.setRequestHeader('Content-type' , 'application/x-www-form-urlencoded');
 	
-	//alert(value);
 	
 	xh.onreadystatechange = function()
 	{
@@ -33,17 +32,38 @@ function searchDat(name)
 	
 	xh.setRequestHeader('Content-type' , 'application/x-www-form-urlencoded');
 	
-	//alert(value);
 	
 	xh.onreadystatechange = function()
 	{
 		if(xh.readyState == 4 && xh.status == 200)
 		{
 			document.getElementById('listSearch').innerHTML = xh.responseText;
-			//alert(xh.responseText);
 		}
 	};
 
 	//send data
 	xh.send("option=search&name="+name);
+}
+
+//function list all data
+function listDat()
+{
+	
+	//create object
+	var xh = new XMLHttpRequest();
+	xh.open('POST' , 'process.php' , true);
+	
+	xh.setRequestHeader('Content-type' , 'application/x-www-form-urlencoded');
+	
+	
+	xh.onreadystatechange = function()
+	{
+		if(xh.readyState == 4 && xh.status == 200)
+		{
+			document.getElementById('listAll').innerHTML = xh.responseText;
+		}
+	};
+
+	//send data
+	xh.send("option=list");
 }

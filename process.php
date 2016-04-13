@@ -5,7 +5,7 @@ $username = "root";
 $password = "afifzafri";
 $dbname = "data";
 
-
+//add
 if( $_POST['option'] == "add" )
 {
 	$n = $_POST['name'];
@@ -30,6 +30,7 @@ if( $_POST['option'] == "add" )
 	$conn = null;
 }
 
+//search
 if( $_POST['option'] == "search" )
 {
 	$n = $_POST['name'];
@@ -41,6 +42,53 @@ if( $_POST['option'] == "search" )
 		
 		$stmt = $conn->prepare("SELECT * FROM JSDATA WHERE NAME LIKE ? ");
 		$stmt->execute(array("%{$n}%"));
+		
+		echo "
+		
+		<table>
+		<tr>
+		<th>ID</th>
+		<th>NAME</th>
+		<th>AGE</th>
+		</tr>
+		
+		
+		";
+		while($result = $stmt->fetch(PDO::FETCH_ASSOC))
+		{
+			$id = $result['ID'];
+			$name = $result['NAME'];
+			$age = $result['AGE'];
+			
+			echo "
+			<tr>
+			<td>$id</td>
+			<td>$name</td>
+			<td>$age</td>
+			</tr>
+			";
+		}
+		
+	}
+	catch(PDOException $e)
+	{
+		echo "Connection Error : " . $e->getMessage();
+	}
+
+	$conn = null;
+}
+
+//list all
+if( $_POST['option'] == "list" )
+{
+
+	try
+	{
+		$conn = new PDO("mysql:host=$servername;dbname=$dbname",$username,$password);
+		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		
+		$stmt = $conn->prepare("SELECT * FROM JSDATA");
+		$stmt->execute();
 		
 		echo "
 		
