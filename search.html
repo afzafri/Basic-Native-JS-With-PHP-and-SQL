@@ -1,6 +1,7 @@
 <html>
 <head>
 <title>Search</title>
+<!-- include javascript file -->
 <script src="script.js"></script>
 </head>
 <body>
@@ -11,7 +12,7 @@ Search Name : <input type="text" name="name"> <br>
 <input type="button" onClick="searchDat(this.form.name.value)" value="Search">
 </form>
 
-<!-- display status -->
+<!-- style for the table, nothing important -->
 <style>
 table, th, td {
     border: 1px solid black;
@@ -22,6 +23,11 @@ th, td {
 }
 </style>
 
+<!-- 
+Display list of search result
+Javascript will do the process and 
+display here
+-->
 <div id="listSearch"></div>
 </table>
 
