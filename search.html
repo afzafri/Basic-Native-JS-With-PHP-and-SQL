@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>Search</title>
+<script src="script.js"></script>
+</head>
+<body>
+
+<h1>Search Data</h1>
+<form method="post">
+Search Name : <input type="text" name="name"> <br>
+<input type="button" onClick="searchDat(this.form.name.value)" value="Search">
+</form>
+
+<!-- display status -->
+<style>
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+}
+</style>
+
+<div id="listSearch"></div>
+</table>
+
+</body>
+</html>
