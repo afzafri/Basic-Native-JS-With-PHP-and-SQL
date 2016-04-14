@@ -5,6 +5,18 @@ $username = "root";
 $password = "afifzafri";
 $dbname = "data";
 
+//pdo 
+try
+{
+	$conn = new PDO("mysql:host=$servername;dbname=$dbname",$username,$password);
+	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+}
+catch(PDOException $e)
+{
+	echo "Connection Error : " . $e->getMessage();
+}
+
+
 //add
 if( $_POST['option'] == "add" )
 {
@@ -13,8 +25,6 @@ if( $_POST['option'] == "add" )
 
 	try
 	{
-		$conn = new PDO("mysql:host=$servername;dbname=$dbname",$username,$password);
-		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		
 		$stmt = $conn->prepare("INSERT INTO JSDATA (NAME,AGE) VALUES(?,?) ");
 		$stmt->execute(array($n,$a));
@@ -27,7 +37,6 @@ if( $_POST['option'] == "add" )
 		echo "Connection Error : " . $e->getMessage();
 	}
 
-	$conn = null;
 }
 
 //search
@@ -36,10 +45,7 @@ if( $_POST['option'] == "search" )
 	$n = $_POST['name'];
 	
 	try
-	{
-		$conn = new PDO("mysql:host=$servername;dbname=$dbname",$username,$password);
-		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		
+	{	
 		$stmt = $conn->prepare("SELECT * FROM JSDATA WHERE NAME LIKE ? ");
 		$stmt->execute(array("%{$n}%"));
 		
@@ -75,7 +81,6 @@ if( $_POST['option'] == "search" )
 		echo "Connection Error : " . $e->getMessage();
 	}
 
-	$conn = null;
 }
 
 //list all
@@ -84,9 +89,6 @@ if( $_POST['option'] == "list" )
 
 	try
 	{
-		$conn = new PDO("mysql:host=$servername;dbname=$dbname",$username,$password);
-		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		
 		$stmt = $conn->prepare("SELECT * FROM JSDATA");
 		$stmt->execute();
 		
@@ -122,7 +124,9 @@ if( $_POST['option'] == "list" )
 		echo "Connection Error : " . $e->getMessage();
 	}
 
-	$conn = null;
 }
+
+
+$conn = null;
 
 ?>
